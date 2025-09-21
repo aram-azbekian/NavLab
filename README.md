@@ -3,6 +3,6 @@
 This is a demo project to explore navigation in modern SwiftUI with the NavigationStack.
 
 # TODO:
-- [ ] fix an issue with the tab switching and the immediate transition to another screen
+- [x] ~~fix an issue with the tab switching and the immediate transition to another screen~~
 - [ ] add "authorization flow" feature
 - [ ] add support for DeepLinking

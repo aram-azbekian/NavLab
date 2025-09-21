@@ -8,9 +8,14 @@
 import SwiftUI
 
 struct ProfileScreen: View {
+    @EnvironmentObject private var coordinator: FlowCoordinator
+
     var body: some View {
         Text("Profile")
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                coordinator.setTabToPresented(tab: .profile)
+            }
     }
 }

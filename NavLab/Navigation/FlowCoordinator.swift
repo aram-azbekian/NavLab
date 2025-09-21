@@ -9,6 +9,7 @@ import SwiftUI
 
 final class FlowCoordinator: ObservableObject {
     @Published var state = FlowState()
+    @Published var isLoading: Bool = false
 
     private var lastCommandAt: Date = .distantPast
     private let debounce: TimeInterval = 0.3
@@ -19,12 +20,37 @@ final class FlowCoordinator: ObservableObject {
         state.selectedTab = tab
     }
 
+    func setTabToPresented(tab: Tab) {
+        guard let tabValue = state.wasTabPresented[tab] else { return }
+        if !tabValue {
+            state.wasTabPresented[tab] = true
+        }
+    }
+
     func open(_ route: Route, asRoot: Bool = false) {
         guard !isDebounced() else { return }
-        if asRoot {
-            state.currentPath = [route]
+        setRouteToTab(route: route, asRoot: asRoot)
+    }
+
+    func open(_ route: Route, in tab: Tab, asRoot: Bool = false) {
+        guard !isDebounced() else { return }
+        guard tab != state.selectedTab else {
+            setRouteToTab(route: route, asRoot: asRoot)
+            return
+        }
+
+        switchTab(tab)
+        if !(state.wasTabPresented[tab] ?? true) {
+            isLoading = true
+            Task {
+                try? await Task.sleep(for: .milliseconds(30))
+                await MainActor.run {
+                    self.isLoading = false
+                    self.setRouteToTab(route: route, asRoot: asRoot)
+                }
+            }
         } else {
-            state.currentPath.append(route)
+            setRouteToTab(route: route, asRoot: asRoot)
         }
     }
 
@@ -48,5 +74,13 @@ final class FlowCoordinator: ObservableObject {
         let now = Date()
         defer { lastCommandAt = now }
         return now.timeIntervalSince(lastCommandAt) < debounce
+    }
+
+    private func setRouteToTab(route: Route, asRoot: Bool = false) {
+        if asRoot {
+            state.currentPath = [route]
+        } else {
+            state.currentPath.append(route)
+        }
     }
 }

@@ -13,8 +13,12 @@ struct NavLabApp: App {
     
     var body: some Scene {
         WindowGroup {
-            RootView()
-                .environmentObject(coordinator)
+            ZStack {
+                RootView()
+                LoadingView()
+                    .opacity(coordinator.isLoading ? 1 : 0)
+            }
+            .environmentObject(coordinator)
         }
     }
 }

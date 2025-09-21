@@ -14,13 +14,15 @@ struct HomeScreen: View {
         List {
             Section("Navigation") {
                 Button("Go to Product #42") {
-                    coordinator.switchTab(.catalog)
-                    coordinator.open(.product(id: 42), asRoot: true)
+                    coordinator.open(.product(id: 42), in: .catalog, asRoot: true)
                 }
                 Button("Open Settings (sheet)") { coordinator.presentSheet(.settings) }
             }
         }
         .navigationTitle("Home")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            coordinator.setTabToPresented(tab: .home)
+        }
     }
 }

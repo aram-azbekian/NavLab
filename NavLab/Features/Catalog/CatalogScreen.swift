@@ -18,5 +18,8 @@ struct CatalogScreen: View {
         }
         .navigationTitle("Catalog")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            coordinator.setTabToPresented(tab: .catalog)
+        }
     }
 }
