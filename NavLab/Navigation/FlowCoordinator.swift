@@ -21,10 +21,14 @@ final class FlowCoordinator: ObservableObject {
 
     func open(_ route: Route, asRoot: Bool = false) {
         guard !isDebounced() else { return }
-        if asRoot {
-            state.currentPath = [route]
-        } else {
-            state.currentPath.append(route)
+        updatePath(route, in: state.selectedTab, asRoot: asRoot)
+    }
+
+    func open(_ route: Route, in tab: Tab, asRoot: Bool = false) {
+        guard !isDebounced() else { return }
+        updatePath(route, in: tab, asRoot: asRoot)
+        if state.selectedTab != tab {
+            state.selectedTab = tab
         }
     }
 
@@ -48,5 +52,13 @@ final class FlowCoordinator: ObservableObject {
         let now = Date()
         defer { lastCommandAt = now }
         return now.timeIntervalSince(lastCommandAt) < debounce
+    }
+
+    private func updatePath(_ route: Route, in tab: Tab, asRoot: Bool) {
+        if asRoot {
+            state.pathPerTab[tab] = [route]
+        } else {
+            state.pathPerTab[tab, default: []].append(route)
+        }
     }
 }
