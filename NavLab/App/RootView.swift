@@ -54,6 +54,7 @@ struct RootView: View {
         )) { idRoute in
             ViewFactory.view(for: idRoute.route)
         }
+        .onOpenURL { coordinator.handle(url: $0) }
     }
 }
 

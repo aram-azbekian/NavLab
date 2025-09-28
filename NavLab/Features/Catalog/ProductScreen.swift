@@ -14,8 +14,8 @@ struct ProductScreen: View {
     var body: some View {
         List {
             Text("Product details for #\(id)")
-            Button("See review A") { coordinator.open(.review(productID: id, reviewID: "A")) }
-            Button("See review B (requires login)") { coordinator.open(.review(productID: id, reviewID: "B")) }
+            Button("See review A") { coordinator.open([.review(productID: id, reviewID: "A")]) }
+            Button("See review B (requires login)") { coordinator.open([.review(productID: id, reviewID: "B")]) }
         }
     }
 }

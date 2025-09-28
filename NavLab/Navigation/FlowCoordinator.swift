@@ -27,12 +27,12 @@ final class FlowCoordinator: ObservableObject {
         }
     }
 
-    func open(_ route: Route, asRoot: Bool = false) {
+    func open(_ route: [Route], asRoot: Bool = false) {
         guard !isDebounced() else { return }
         setRouteToTab(route: route, asRoot: asRoot)
     }
 
-    func open(_ route: Route, in tab: Tab, asRoot: Bool = false) {
+    func open(_ route: [Route], in tab: Tab, asRoot: Bool = false) {
         guard !isDebounced() else { return }
         guard tab != state.selectedTab else {
             setRouteToTab(route: route, asRoot: asRoot)
@@ -69,6 +69,19 @@ final class FlowCoordinator: ObservableObject {
     }
     func dismissFullScreen() { state.fullScreen = nil }
 
+    func handle(url: URL) {
+        guard let route = URLRouter.parse(url) else { return }
+
+        switch route {
+        case .product(let id):
+            open([.product(id: id)], in: .catalog, asRoot: true)
+        case .review(let productID, let reviewID):
+            open([.product(id: productID), .review(productID: productID, reviewID: reviewID)], in: .catalog, asRoot: true)
+        default:
+            open([route], asRoot: true)
+        }
+    }
+
     // MARK: - Helpers
     private func isDebounced() -> Bool {
         let now = Date()
@@ -76,11 +89,11 @@ final class FlowCoordinator: ObservableObject {
         return now.timeIntervalSince(lastCommandAt) < debounce
     }
 
-    private func setRouteToTab(route: Route, asRoot: Bool = false) {
+    private func setRouteToTab(route: [Route], asRoot: Bool = false) {
         if asRoot {
-            state.currentPath = [route]
+            state.currentPath = route
         } else {
-            state.currentPath.append(route)
+            state.currentPath.append(contentsOf: route)
         }
     }
 }
