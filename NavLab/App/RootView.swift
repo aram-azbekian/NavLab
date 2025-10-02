@@ -42,20 +42,6 @@ struct RootView: View {
             .tabItem { Label("Profile", systemImage: "person") }
             .tag(Tab.profile)
         }
-        .sheet(item: Binding(
-            get: { coordinator.state.sheet.map(IdentifiableRoute.init) },
-            set: { _ in coordinator.dismissSheet() }
-        )) { idRoute in
-            ViewFactory.view(for: idRoute.route)
-        }
-        .fullScreenCover(item: Binding(
-            get: { coordinator.state.fullScreen.map(IdentifiableRoute.init) },
-            set: { _ in coordinator.dismissFullScreen() }
-        )) { idRoute in
-            ViewFactory.view(for: idRoute.route)
-        }
         .onOpenURL { coordinator.handle(url: $0) }
     }
 }
-
-struct IdentifiableRoute: Identifiable { let id = UUID(); let route: Route }

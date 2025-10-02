@@ -16,7 +16,6 @@ struct HomeScreen: View {
                 Button("Go to Product #42") {
                     coordinator.open([.product(id: 42)], in: .catalog, asRoot: true)
                 }
-                Button("Open Settings (sheet)") { coordinator.presentSheet(.settings) }
             }
         }
         .navigationTitle("Home")

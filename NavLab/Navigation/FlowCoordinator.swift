@@ -54,21 +54,6 @@ final class FlowCoordinator: ObservableObject {
         }
     }
 
-    func pop() { _ = state.currentPath.popLast() }
-    func popToRoot() { state.currentPath.removeAll() }
-
-    func presentSheet(_ route: Route) {
-        guard state.sheet == nil else { return }
-        state.sheet = route
-    }
-    func dismissSheet() { state.sheet = nil }
-
-    func presentFullScreen(_ route: Route) {
-        guard state.fullScreen == nil else { return }
-        state.fullScreen = route
-    }
-    func dismissFullScreen() { state.fullScreen = nil }
-
     func handle(url: URL) {
         guard let route = URLRouter.parse(url) else { return }
 
