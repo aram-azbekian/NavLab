@@ -30,7 +30,6 @@ enum URLRouter {
         case .home: path = "/home"
         case .product(let id): path = "/product/\(id)"
         case .review(let pid, let rid): path = "/review/\(pid)/\(rid)"
-        case .settings: path = "/settings"
         }
         return URL(string: "navlab://\(path)")
     }

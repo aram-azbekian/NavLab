@@ -10,12 +10,22 @@ import SwiftUI
 struct ProductScreen: View {
     let id: Int
     @EnvironmentObject var coordinator: FlowCoordinator
-    
+    @State private var showDelete: Bool = false
+
     var body: some View {
         List {
-            Text("Product details for #\(id)")
-            Button("See review A") { coordinator.open([.review(productID: id, reviewID: "A")]) }
-            Button("See review B (requires login)") { coordinator.open([.review(productID: id, reviewID: "B")]) }
+            Button("Buy") { coordinator.presentSheet(.buy(productID: id)) }
+            Button("Delete from favorites") { showDelete = true }
+                .confirmationDialog(
+                    "Delete item?",
+                    isPresented: $showDelete,
+                    titleVisibility: .visible
+                ) {
+                    Button("Delete", role: .destructive) {
+                    }
+                    Button("Cancel", role: .cancel) { }
+                }
         }
+        .navigationTitle("Product #\(id)")
     }
 }

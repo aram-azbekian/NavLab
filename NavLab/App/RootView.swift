@@ -42,6 +42,15 @@ struct RootView: View {
             .tabItem { Label("Profile", systemImage: "person") }
             .tag(Tab.profile)
         }
+        .sheet(item: Binding(
+            get: { coordinator.state.sheet.map(IdentifiableModal.init) },
+            set: { _ in coordinator.dismissSheet() }
+        ), content: { id in
+            SheetFactory.view(for: id.route)
+        })
+        .toast(isPresented: $coordinator.isToastPresented, text: coordinator.toastText)
         .onOpenURL { coordinator.handle(url: $0) }
     }
 }
+
+struct IdentifiableModal: Identifiable { let id = UUID(); let route: ModalRoute }

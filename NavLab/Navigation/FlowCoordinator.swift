@@ -11,6 +11,9 @@ final class FlowCoordinator: ObservableObject {
     @Published var state = FlowState()
     @Published var isLoading: Bool = false
 
+    @Published var isToastPresented: Bool = false
+    var toastText: String = ""
+
     private var lastCommandAt: Date = .distantPast
     private let debounce: TimeInterval = 0.3
 
@@ -54,6 +57,27 @@ final class FlowCoordinator: ObservableObject {
         }
     }
 
+    // MARK: - Modals API
+    func presentSheet(_ route: ModalRoute) {
+        guard state.sheet == nil else { return }
+        state.sheet = route
+    }
+    func dismissSheet() { state.sheet = nil }
+
+    func handleBuyResult(_ success: Bool, productID: Int) {
+        dismissSheet()
+        if success {
+            // например, пуш на «Заказ оформлен» или баннер/тост
+            presentToast(text: "Successfully bought product #\(productID)")
+        }
+    }
+
+    func presentToast(text: String) {
+        toastText = text
+        isToastPresented = true
+    }
+
+    // MARK: - Deeplinking
     func handle(url: URL) {
         guard let route = URLRouter.parse(url) else { return }
 

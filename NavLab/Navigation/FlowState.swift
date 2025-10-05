@@ -11,8 +11,7 @@ struct FlowState: Equatable {
     var pathPerTab: [Tab: [Route]] = [.home: [], .catalog: [], .profile: []]
     var wasTabPresented: [Tab: Bool] = [.home: false, .catalog: false, .profile: false]
     var selectedTab: Tab = .home
-    var sheet: Route? = nil
-    var fullScreen: Route? = nil
+    var sheet: ModalRoute? = nil
 }
 
 extension FlowState {

@@ -14,7 +14,6 @@ enum ViewFactory {
         case .home: HomeScreen()
         case .product(let id): ProductScreen(id: id)
         case .review(let pid, let rid): ReviewScreen(productID: pid, reviewID: rid)
-        case .settings: Text("Settings").padding()
         }
     }
 }

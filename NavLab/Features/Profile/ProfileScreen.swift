@@ -11,7 +11,7 @@ struct ProfileScreen: View {
     @EnvironmentObject private var coordinator: FlowCoordinator
 
     var body: some View {
-        Text("Profile")
+        Button("Open Settings") { coordinator.presentSheet(.settings) }
             .navigationTitle("Profile")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {

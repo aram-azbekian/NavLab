@@ -13,5 +13,4 @@ enum Route: Hashable, Codable {
     case home
     case product(id: Int)
     case review(productID: Int, reviewID: String)
-    case settings
 }
