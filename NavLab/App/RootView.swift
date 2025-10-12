@@ -43,14 +43,18 @@ struct RootView: View {
             .tag(Tab.profile)
         }
         .sheet(item: Binding(
-            get: { coordinator.state.sheet.map(IdentifiableModal.init) },
+            get: { coordinator.state.sheet },
             set: { _ in coordinator.dismissSheet() }
-        ), content: { id in
-            SheetFactory.view(for: id.route)
+        ), content: { route in
+            SheetFactory.view(for: route)
+        })
+        .fullScreenCover(item: Binding(
+            get: { coordinator.state.fullScreen },
+            set: { _ in coordinator.dismissFullScreen() }
+        ), content: { route in
+            FullScreenFactory.view(for: route)
         })
         .toast(isPresented: $coordinator.isToastPresented, text: coordinator.toastText)
         .onOpenURL { coordinator.handle(url: $0) }
     }
 }
-
-struct IdentifiableModal: Identifiable { let id = UUID(); let route: ModalRoute }

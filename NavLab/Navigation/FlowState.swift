@@ -12,6 +12,8 @@ struct FlowState: Equatable {
     var wasTabPresented: [Tab: Bool] = [.home: false, .catalog: false, .profile: false]
     var selectedTab: Tab = .home
     var sheet: ModalRoute? = nil
+    var fullScreen: FullScreenRoute? = nil
+    var pendingRoute: PendingNavigation?
 }
 
 extension FlowState {

@@ -7,7 +7,16 @@
 
 import SwiftUI
 
-enum ModalRoute: Hashable, Codable {
+enum ModalRoute: Hashable, Codable, Identifiable {
     case settings
     case buy(productID: Int)
+
+    var id: String {
+        switch self {
+        case .settings:
+            return "settings"
+        case .buy:
+            return "buy"
+        }
+    }
 }

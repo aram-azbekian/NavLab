@@ -15,3 +15,13 @@ struct LoadingView: View {
         }
     }
 }
+
+extension View {
+    func loadingOverlay(isPresented: Bool) -> some View {
+        ZStack {
+            self
+            LoadingView()
+                .opacity(isPresented ? 1.0 : 0.0)
+        }
+    }
+}

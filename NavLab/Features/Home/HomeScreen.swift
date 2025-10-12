@@ -14,7 +14,7 @@ struct HomeScreen: View {
         List {
             Section("Navigation") {
                 Button("Go to Product #42") {
-                    coordinator.open([.product(id: 42)], in: .catalog, asRoot: true)
+                    coordinator.open(.product(id: 42), in: .catalog, asRoot: true)
                 }
             }
         }

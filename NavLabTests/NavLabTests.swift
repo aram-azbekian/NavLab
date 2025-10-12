@@ -11,7 +11,9 @@ import XCTest
 final class NavLabTests: XCTestCase {
 
     func testDeepLinkProduct() {
-        let c = FlowCoordinator()
+        let authManager = AuthManager()
+        authManager.isAuthorized = true
+        let c = FlowCoordinator(authManager: authManager)
         c.handle(url: URL(string: "navlab://product/10")!)
         _ = XCTWaiter.wait(for: [expectation(description: "wait 1 sec")], timeout: 1.0)
         XCTAssertEqual(c.state.selectedTab, .catalog)
@@ -19,7 +21,9 @@ final class NavLabTests: XCTestCase {
     }
 
     func testDeepLinkReview() {
-        let c = FlowCoordinator()
+        let authManager = AuthManager()
+        authManager.isAuthorized = true
+        let c = FlowCoordinator(authManager: authManager)
         c.handle(url: URL(string: "navlab://review/42/abc123")!)
         _ = XCTWaiter.wait(for: [expectation(description: "wait 1 sec")], timeout: 1.0)
         XCTAssertEqual(c.state.selectedTab, .catalog)

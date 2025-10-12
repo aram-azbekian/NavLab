@@ -14,3 +14,16 @@ enum Route: Hashable, Codable {
     case product(id: Int)
     case review(productID: Int, reviewID: String)
 }
+
+extension Route {
+    var needsAuthorization: Bool {
+        switch self {
+        case .home:
+            false
+        case .product:
+            true
+        case .review:
+            true
+        }
+    }
+}
