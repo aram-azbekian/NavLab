@@ -7,21 +7,37 @@
 
 import SwiftUI
 
+enum HomeRoute: Hashable, Codable {
+    case product(id: Int)
+}
+
+struct HomeHandlers {
+    let openProduct: @MainActor (Int) -> Void
+    init(openProduct: @escaping (Int) -> Void) {
+        self.openProduct = openProduct
+    }
+}
+
+final class HomeViewModel: ObservableObject {
+    fileprivate var handlers: HomeHandlers?
+    func setHomeHandlers(handlers: HomeHandlers) {
+        self.handlers = handlers
+    }
+}
+
 struct HomeScreen: View {
-    @EnvironmentObject var coordinator: FlowCoordinator
-    
+    @ObservedObject var homeVM: HomeViewModel
+
     var body: some View {
-        List {
-            Section("Navigation") {
-                Button("Go to Product #42") {
-                    coordinator.open(.product(id: 42), in: .catalog, asRoot: true)
-                }
+        NavigationStack {
+            Button("Go to Product #42") {
+                homeVM.handlers?.openProduct(42)
             }
-        }
-        .navigationTitle("Home")
-        .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            coordinator.setTabToPresented(tab: .home)
+            .tint(.green)
+            .buttonStyle(.bordered)
+            .buttonBorderShape(.capsule)
+            .controlSize(.large)
+            .navigationTitle("Home")
         }
     }
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,12 +16,10 @@
 		242B63AE2E9319320092B038 /* BuySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242B63AD2E93192E0092B038 /* BuySheet.swift */; };
 		242B63B02E93196A0092B038 /* SettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242B63AF2E9319630092B038 /* SettingsSheet.swift */; };
 		242B63B52E931F4D0092B038 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242B63B42E931F4D0092B038 /* Toast.swift */; };
-		242B63B62E931F4D0092B038 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242B63B42E931F4D0092B038 /* Toast.swift */; };
 		24520CB32E7DC16D00656F89 /* NavLabApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24520CB22E7DC16D00656F89 /* NavLabApp.swift */; };
 		24520CB72E7DC16F00656F89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24520CB62E7DC16F00656F89 /* Assets.xcassets */; };
 		24520CBA2E7DC16F00656F89 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24520CB92E7DC16F00656F89 /* Preview Assets.xcassets */; };
 		24520CC22E7DC1BE00656F89 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24520CC12E7DC1BE00656F89 /* RootView.swift */; };
-		24520CC62E7DC20100656F89 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24520CC52E7DC20100656F89 /* Route.swift */; };
 		24520CC82E7DC23000656F89 /* FlowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24520CC72E7DC23000656F89 /* FlowState.swift */; };
 		24520CCA2E7DC2A000656F89 /* FlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24520CC92E7DC2A000656F89 /* FlowCoordinator.swift */; };
 		24520CCE2E7DC39300656F89 /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24520CCD2E7DC39300656F89 /* ViewFactory.swift */; };
@@ -33,16 +31,6 @@
 		24D430D92E89A8DB007F2D42 /* URLRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D430D82E89A8D7007F2D42 /* URLRouter.swift */; };
 		24E44FD02E7F879500C65DA1 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E44FCF2E7F878F00C65DA1 /* LoadingView.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		24D430E32E89AFF8007F2D42 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 24520CA72E7DC16D00656F89 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 24520CAE2E7DC16D00656F89;
-			remoteInfo = NavLab;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		241A71D72E988E3300D1501E /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
@@ -59,7 +47,6 @@
 		24520CB62E7DC16F00656F89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		24520CB92E7DC16F00656F89 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		24520CC12E7DC1BE00656F89 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		24520CC52E7DC20100656F89 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		24520CC72E7DC23000656F89 /* FlowState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowState.swift; sourceTree = "<group>"; };
 		24520CC92E7DC2A000656F89 /* FlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCoordinator.swift; sourceTree = "<group>"; };
 		24520CCD2E7DC39300656F89 /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
@@ -70,23 +57,11 @@
 		24520CDB2E7DC5AA00656F89 /* ProfileScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreen.swift; sourceTree = "<group>"; };
 		24D430D82E89A8D7007F2D42 /* URLRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRouter.swift; sourceTree = "<group>"; };
 		24D430DA2E89A98E007F2D42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		24D430DF2E89AFF8007F2D42 /* NavLabTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavLabTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24E44FCF2E7F878F00C65DA1 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		24D430E02E89AFF8007F2D42 /* NavLabTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = NavLabTests; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
-
 /* Begin PBXFrameworksBuildPhase section */
 		24520CAC2E7DC16D00656F89 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		24D430DC2E89AFF8007F2D42 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -152,7 +127,6 @@
 			isa = PBXGroup;
 			children = (
 				24520CB12E7DC16D00656F89 /* NavLab */,
-				24D430E02E89AFF8007F2D42 /* NavLabTests */,
 				24520CB02E7DC16D00656F89 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -161,7 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				24520CAF2E7DC16D00656F89 /* NavLab.app */,
-				24D430DF2E89AFF8007F2D42 /* NavLabTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -206,7 +179,6 @@
 				242B63A92E93135C0092B038 /* ModalRoute.swift */,
 				24D430D82E89A8D7007F2D42 /* URLRouter.swift */,
 				24E44FCF2E7F878F00C65DA1 /* LoadingView.swift */,
-				24520CC52E7DC20100656F89 /* Route.swift */,
 				24520CC72E7DC23000656F89 /* FlowState.swift */,
 				24520CC92E7DC2A000656F89 /* FlowCoordinator.swift */,
 				24520CCD2E7DC39300656F89 /* ViewFactory.swift */,
@@ -270,29 +242,6 @@
 			productReference = 24520CAF2E7DC16D00656F89 /* NavLab.app */;
 			productType = "com.apple.product-type.application";
 		};
-		24D430DE2E89AFF8007F2D42 /* NavLabTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 24D430E52E89AFF8007F2D42 /* Build configuration list for PBXNativeTarget "NavLabTests" */;
-			buildPhases = (
-				24D430DB2E89AFF8007F2D42 /* Sources */,
-				24D430DC2E89AFF8007F2D42 /* Frameworks */,
-				24D430DD2E89AFF8007F2D42 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				24D430E42E89AFF8007F2D42 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				24D430E02E89AFF8007F2D42 /* NavLabTests */,
-			);
-			name = NavLabTests;
-			packageProductDependencies = (
-			);
-			productName = NavLabTests;
-			productReference = 24D430DF2E89AFF8007F2D42 /* NavLabTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -305,10 +254,6 @@
 				TargetAttributes = {
 					24520CAE2E7DC16D00656F89 = {
 						CreatedOnToolsVersion = 15.4;
-					};
-					24D430DE2E89AFF8007F2D42 = {
-						CreatedOnToolsVersion = 26.0;
-						TestTargetID = 24520CAE2E7DC16D00656F89;
 					};
 				};
 			};
@@ -326,7 +271,6 @@
 			projectRoot = "";
 			targets = (
 				24520CAE2E7DC16D00656F89 /* NavLab */,
-				24D430DE2E89AFF8007F2D42 /* NavLabTests */,
 			);
 		};
 /* End PBXProject section */
@@ -341,13 +285,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		24D430DD2E89AFF8007F2D42 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -356,7 +293,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				24520CD42E7DC49200656F89 /* CatalogScreen.swift in Sources */,
-				24520CC62E7DC20100656F89 /* Route.swift in Sources */,
 				24520CCA2E7DC2A000656F89 /* FlowCoordinator.swift in Sources */,
 				24520CDC2E7DC5AA00656F89 /* ProfileScreen.swift in Sources */,
 				24520CB32E7DC16D00656F89 /* NavLabApp.swift in Sources */,
@@ -380,23 +316,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		24D430DB2E89AFF8007F2D42 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				242B63B62E931F4D0092B038 /* Toast.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		24D430E42E89AFF8007F2D42 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 24520CAE2E7DC16D00656F89 /* NavLab */;
-			targetProxy = 24D430E32E89AFF8007F2D42 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		24520CBB2E7DC16F00656F89 /* Debug */ = {
@@ -582,48 +502,6 @@
 			};
 			name = Release;
 		};
-		24D430E62E89AFF8007F2D42 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.azbekyan94.NavLabTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NavLab.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NavLab";
-			};
-			name = Debug;
-		};
-		24D430E72E89AFF8007F2D42 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.azbekyan94.NavLabTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRING_CATALOG_GENERATE_SYMBOLS = NO;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NavLab.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NavLab";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -641,15 +519,6 @@
 			buildConfigurations = (
 				24520CBE2E7DC16F00656F89 /* Debug */,
 				24520CBF2E7DC16F00656F89 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		24D430E52E89AFF8007F2D42 /* Build configuration list for PBXNativeTarget "NavLabTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				24D430E62E89AFF8007F2D42 /* Debug */,
-				24D430E72E89AFF8007F2D42 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

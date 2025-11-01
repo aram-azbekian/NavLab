@@ -17,8 +17,3 @@ enum FullScreenRoute: Hashable, Codable, Identifiable {
         }
     }
 }
-
-enum PendingNavigation: Equatable {
-    case single(route: Route, tab: Tab, asRoot: Bool)
-    case stack(routes: [Route], tab: Tab, asRoot: Bool)
-}

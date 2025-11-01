@@ -12,35 +12,26 @@ struct RootView: View {
     
     var body: some View {
         TabView(selection: Binding(get: { coordinator.state.selectedTab }, set: coordinator.switchTab)) {
-            NavigationStack(path: Binding(
-                get: { coordinator.state.pathPerTab[.home] ?? [] },
-                set: { coordinator.state.pathPerTab[.home] = $0 }
-            )) {
-                HomeScreen()
-                    .navigationDestination(for: Route.self) { ViewFactory.view(for: $0) }
-            }
-            .tabItem { Label("Home", systemImage: "house") }
-            .tag(Tab.home)
-            
-            NavigationStack(path: Binding(
-                get: { coordinator.state.pathPerTab[.catalog] ?? [] },
-                set: { coordinator.state.pathPerTab[.catalog] = $0 }
-            )) {
-                CatalogScreen()
-                    .navigationDestination(for: Route.self) { ViewFactory.view(for: $0) }
-            }
-            .tabItem { Label("Catalog", systemImage: "list.bullet") }
-            .tag(Tab.catalog)
-            
-            NavigationStack(path: Binding(
-                get: { coordinator.state.pathPerTab[.profile] ?? [] },
-                set: { coordinator.state.pathPerTab[.profile] = $0 }
-            )) {
-                ProfileScreen()
-                    .navigationDestination(for: Route.self) { ViewFactory.view(for: $0) }
-            }
-            .tabItem { Label("Profile", systemImage: "person") }
-            .tag(Tab.profile)
+            HomeScreen(homeVM: coordinator.homeVM)
+                .tabItem { Label("Home", systemImage: "house") }
+                .tag(Tab.home)
+                .onAppear {
+                    coordinator.setTabToPresented(tab: .home)
+                }
+
+            CatalogScreen(catalogVM: coordinator.catalogVM)
+                .tabItem { Label("Catalog", systemImage: "list.bullet") }
+                .tag(Tab.catalog)
+                .onAppear {
+                    coordinator.setTabToPresented(tab: .catalog)
+                }
+
+            ProfileScreen(profileVM: coordinator.profileVM)
+                .tabItem { Label("Profile", systemImage: "person") }
+                .tag(Tab.profile)
+                .onAppear {
+                    coordinator.setTabToPresented(tab: .profile)
+                }
         }
         .sheet(item: Binding(
             get: { coordinator.state.sheet },

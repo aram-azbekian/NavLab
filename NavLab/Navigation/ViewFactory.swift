@@ -9,9 +9,8 @@ import SwiftUI
 
 enum ViewFactory {
     @ViewBuilder
-    static func view(for route: Route) -> some View {
+    static func view(for route: CatalogRoute) -> some View {
         switch route {
-        case .home: HomeScreen()
         case .product(let id): ProductScreen(id: id)
         case .review(let pid, let rid): ReviewScreen(productID: pid, reviewID: rid)
         }

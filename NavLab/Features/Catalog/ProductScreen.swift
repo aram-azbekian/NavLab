@@ -9,12 +9,12 @@ import SwiftUI
 
 struct ProductScreen: View {
     let id: Int
-    @EnvironmentObject var coordinator: FlowCoordinator
+    @EnvironmentObject private var catalogVM: CatalogViewModel
     @State private var showDelete: Bool = false
 
     var body: some View {
         List {
-            Button("Buy") { coordinator.presentSheet(.buy(productID: id)) }
+            Button("Buy") { catalogVM.handlers?.buyProductAction(id) }
             Button("Delete from favorites") { showDelete = true }
                 .confirmationDialog(
                     "Delete item?",

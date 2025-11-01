@@ -8,14 +8,30 @@
 import SwiftUI
 
 struct ProfileScreen: View {
-    @EnvironmentObject private var coordinator: FlowCoordinator
+    @ObservedObject var profileVM: ProfileViewModel
 
     var body: some View {
-        Button("Open Settings") { coordinator.presentSheet(.settings) }
-            .navigationTitle("Profile")
-            .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                coordinator.setTabToPresented(tab: .profile)
-            }
+        NavigationStack {
+            Button("Open Settings") { profileVM.handlers?.openSettingsSheet() }
+                .tint(.green)
+                .buttonStyle(.bordered)
+                .buttonBorderShape(.capsule)
+                .controlSize(.large)
+                .navigationTitle("Profile")
+        }
+    }
+}
+
+struct ProfileHandlers {
+    let openSettingsSheet: @MainActor () -> Void
+    init(openSettingsSheet: @escaping () -> Void) {
+        self.openSettingsSheet = openSettingsSheet
+    }
+}
+
+final class ProfileViewModel: ObservableObject {
+    fileprivate var handlers: ProfileHandlers?
+    func setProfileHandlers(handlers: ProfileHandlers) {
+        self.handlers = handlers
     }
 }

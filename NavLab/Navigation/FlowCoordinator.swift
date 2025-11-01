@@ -19,9 +19,54 @@ final class FlowCoordinator: ObservableObject {
 
     private let authManager: AuthManager
 
-    init(authManager: AuthManager) {
+    init(
+        authManager: AuthManager = .init(),
+    ) {
         self.authManager = authManager
+        homeVM = HomeViewModel()
+        catalogVM = CatalogViewModel()
+        profileVM = ProfileViewModel()
+
+        homeVM.setHomeHandlers(handlers: HomeHandlers(
+            openProduct: { [weak self] productId in
+                self?.catalogVM.openProduct(productID: productId)
+            }
+        ))
+
+        profileVM.setProfileHandlers(handlers: ProfileHandlers(
+            openSettingsSheet: { [weak self] in
+                self?.presentSheet(.settings)
+            }
+        ))
+
+        catalogVM.setCatalogHandlers(handlers: CatalogHandlers(
+            checkAuthorization: { [weak self] in
+                self?.authManager.isAuthorized ?? false
+            },
+            goLogin: { [weak self] in
+                guard let self else { return }
+                guard !isDebounced() else { return }
+                presentFullScreen(.login)
+            },
+            switchTabToCatalog: { [weak self] completion in
+                guard let self else { return }
+                guard !isDebounced() else { return }
+                switchTab(.catalog)
+                Task { @MainActor in
+                    completion()
+                }
+            },
+            buyProductAction: { [weak self] productID in
+                guard let self else { return }
+                guard !isDebounced() else { return }
+                presentSheet(.buy(productID: productID))
+            }
+        ))
     }
+
+    let homeVM: HomeViewModel
+    let catalogVM: CatalogViewModel
+    let profileVM: ProfileViewModel
 
     // MARK: - Public API
     func switchTab(_ tab: Tab) {
@@ -33,72 +78,6 @@ final class FlowCoordinator: ObservableObject {
         guard let tabValue = state.wasTabPresented[tab] else { return }
         if !tabValue {
             state.wasTabPresented[tab] = true
-        }
-    }
-
-    func open(_ route: Route, asRoot: Bool = false) {
-        open(route, in: state.selectedTab, asRoot: asRoot)
-    }
-
-    func open(_ route: Route, in tab: Tab, asRoot: Bool = false) {
-        guard !isDebounced() else { return }
-
-        if route.needsAuthorization && !authManager.isAuthorized {
-            state.pendingRoute = .single(route: route, tab: tab, asRoot: asRoot)
-            presentFullScreen(.login)
-            return
-        }
-
-        guard tab != state.selectedTab else {
-            setRouteToTab(route: route, asRoot: asRoot)
-            return
-        }
-
-        switchTab(tab)
-        if !(state.wasTabPresented[tab] ?? true) {
-            isLoading = true
-            Task {
-                try? await Task.sleep(for: .milliseconds(30))
-                await MainActor.run {
-                    self.isLoading = false
-                    self.setRouteToTab(route: route, asRoot: asRoot)
-                }
-            }
-        } else {
-            setRouteToTab(route: route, asRoot: asRoot)
-        }
-    }
-
-    func openStack(_ route: [Route], asRoot: Bool = false) {
-        openStack(route, in: state.selectedTab, asRoot: asRoot)
-    }
-
-    func openStack(_ route: [Route], in tab: Tab, asRoot: Bool = false) {
-        guard !isDebounced() else { return }
-
-        if route.contains(where: { $0.needsAuthorization }) && !authManager.isAuthorized {
-            state.pendingRoute = .stack(routes: route, tab: tab, asRoot: asRoot)
-            presentFullScreen(.login)
-            return
-        }
-
-        guard tab != state.selectedTab else {
-            setStackToTab(route: route, asRoot: asRoot)
-            return
-        }
-
-        switchTab(tab)
-        if !(state.wasTabPresented[tab] ?? true) {
-            isLoading = true
-            Task {
-                try? await Task.sleep(for: .milliseconds(30))
-                await MainActor.run {
-                    self.isLoading = false
-                    self.setStackToTab(route: route, asRoot: asRoot)
-                }
-            }
-        } else {
-            setStackToTab(route: route, asRoot: asRoot)
         }
     }
 
@@ -118,7 +97,6 @@ final class FlowCoordinator: ObservableObject {
     func handleBuyResult(_ success: Bool, productID: Int) {
         dismissSheet()
         if success {
-            // например, пуш на «Заказ оформлен» или баннер/тост
             presentToast(text: "Successfully bought product #\(productID)")
         }
     }
@@ -126,15 +104,9 @@ final class FlowCoordinator: ObservableObject {
     func handleAuthResult(_ success: Bool) {
         isLoading = false
         dismissFullScreen()
-        if success, let pendingRoute = state.pendingRoute {
-            switch pendingRoute {
-            case .single(let route, let tab, let asRoot):
-                open(route, in: tab, asRoot: asRoot)
-            case .stack(let routes, let tab, let asRoot):
-                openStack(routes, in: tab, asRoot: asRoot)
-            }
+        if success {
+            catalogVM.openPendingPath()
         }
-        state.pendingRoute = nil
     }
 
     func presentToast(text: String) {
@@ -144,15 +116,14 @@ final class FlowCoordinator: ObservableObject {
 
     // MARK: - Deeplinking
     func handle(url: URL) {
+        guard !isDebounced() else { return }
         guard let route = URLRouter.parse(url) else { return }
 
         switch route {
         case .product(let id):
-            open(.product(id: id), in: .catalog, asRoot: true)
+            catalogVM.openProduct(productID: id)
         case .review(let productID, let reviewID):
-            openStack([.product(id: productID), .review(productID: productID, reviewID: reviewID)], in: .catalog, asRoot: true)
-        default:
-            open(route, asRoot: true)
+            catalogVM.openReview(productID: productID, reviewID: reviewID)
         }
     }
 
@@ -161,21 +132,5 @@ final class FlowCoordinator: ObservableObject {
         let now = Date()
         defer { lastCommandAt = now }
         return now.timeIntervalSince(lastCommandAt) < debounce
-    }
-
-    private func setRouteToTab(route: Route, asRoot: Bool = false) {
-        if asRoot {
-            state.currentPath = [route]
-        } else {
-            state.currentPath.append(route)
-        }
-    }
-
-    private func setStackToTab(route: [Route], asRoot: Bool = false) {
-        if asRoot {
-            state.currentPath = route
-        } else {
-            state.currentPath.append(contentsOf: route)
-        }
     }
 }

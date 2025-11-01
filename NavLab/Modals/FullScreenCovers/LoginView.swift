@@ -16,14 +16,18 @@ struct LoginView: View {
             Button("Login Successfully") {
                 auth(withSuccess: true)
             }
-            .padding()
-            .border(.black)
+            .tint(.green)
+            .buttonStyle(.borderedProminent)
+            .buttonBorderShape(.capsule)
+            .controlSize(.large)
 
             Button("Fail Login") {
                 auth(withSuccess: false)
             }
-            .padding()
-            .border(.black)
+            .tint(.green)
+            .buttonStyle(.borderedProminent)
+            .buttonBorderShape(.capsule)
+            .controlSize(.large)
         }
         .loadingOverlay(isPresented: coordinator.isLoading)
     }
