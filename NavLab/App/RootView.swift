@@ -9,7 +9,8 @@ import SwiftUI
 
 struct RootView: View {
     @EnvironmentObject var coordinator: FlowCoordinator
-    
+    @AppStorage("restorePath") private var restorePath: URL?
+
     var body: some View {
         TabView(selection: Binding(get: { coordinator.state.selectedTab }, set: coordinator.switchTab)) {
             HomeScreen(homeVM: coordinator.homeVM)
@@ -47,5 +48,10 @@ struct RootView: View {
         })
         .toast(isPresented: $coordinator.isToastPresented, text: coordinator.toastText)
         .onOpenURL { coordinator.handle(url: $0) }
+        .onAppear {
+            if let restorePath {
+                coordinator.handle(url: restorePath)
+            }
+        }
     }
 }

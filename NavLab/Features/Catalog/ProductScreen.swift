@@ -10,6 +10,7 @@ import SwiftUI
 struct ProductScreen: View {
     let id: Int
     @EnvironmentObject private var catalogVM: CatalogViewModel
+    @AppStorage("restorePath") private var restorePath: URL?
     @State private var showDelete: Bool = false
 
     var body: some View {
@@ -25,7 +26,23 @@ struct ProductScreen: View {
                     }
                     Button("Cancel", role: .cancel) { }
                 }
+            Button("Read review") { catalogVM.openReview(productID: id, reviewID: 444) }
         }
         .navigationTitle("Product #\(id)")
+        .onAppear {
+            guard restorePath == nil else {
+                restorePath = nil
+                return
+            }
+
+            restorePath = URLRouter.build(.product(id: id))
+        }
+        .onDisappear {
+            restorePath = nil
+            print("product onDisappear")
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willTerminateNotification)) { _ in
+            restorePath = nil
+        }
     }
 }

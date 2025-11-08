@@ -9,5 +9,5 @@ This is a demo project to explore navigation in modern SwiftUI with the Navigati
 - [x] ~~sheets + buy flow~~
 - [x] ~~separate features + child coordinators~~
 - [ ] onboarding
-- [ ] save / restore path
+- [x] ~~save / restore path~~
 - [ ] tests

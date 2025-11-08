@@ -17,7 +17,7 @@ enum URLRouter {
         case "product":
             if comps.count >= 1, let id = Int(comps[0]) { return .product(id: id) }
         case "review":
-            if comps.count >= 2, let pid = Int(comps[0]) { return .review(productID: pid, reviewID: comps[1]) }
+            if comps.count >= 2, let pid = Int(comps[0]), let rid = Int(comps[0]) { return .review(productID: pid, reviewID: rid) }
         default: break
         }
         return nil
@@ -26,8 +26,8 @@ enum URLRouter {
     static func build(_ route: CatalogRoute) -> URL? {
         var path = ""
         switch route {
-        case .product(let id): path = "/product/\(id)"
-        case .review(let pid, let rid): path = "/review/\(pid)/\(rid)"
+        case .product(let id): path = "product/\(id)"
+        case .review(let pid, let rid): path = "review/\(pid)/\(rid)"
         }
         return URL(string: "navlab://\(path)")
     }

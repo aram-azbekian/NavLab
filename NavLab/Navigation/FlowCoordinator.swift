@@ -116,7 +116,6 @@ final class FlowCoordinator: ObservableObject {
 
     // MARK: - Deeplinking
     func handle(url: URL) {
-        guard !isDebounced() else { return }
         guard let route = URLRouter.parse(url) else { return }
 
         switch route {

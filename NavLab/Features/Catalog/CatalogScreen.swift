@@ -9,7 +9,7 @@ import SwiftUI
 
 enum CatalogRoute: Hashable, Codable {
     case product(id: Int)
-    case review(productID: Int, reviewID: String)
+    case review(productID: Int, reviewID: Int)
 }
 
 struct CatalogHandlers {
@@ -65,7 +65,7 @@ final class CatalogViewModel: ObservableObject {
         open(route: .product(id: productID), asRoot: true)
     }
 
-    func openReview(productID: Int, reviewID: String) {
+    func openReview(productID: Int, reviewID: Int) {
         let stack: [CatalogRoute] = [.product(id: productID), .review(productID: productID, reviewID: reviewID)]
         openStack(stack: stack, asRoot: true)
     }

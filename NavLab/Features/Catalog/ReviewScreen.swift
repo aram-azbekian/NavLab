@@ -9,12 +9,11 @@ import SwiftUI
 
 struct ReviewScreen: View {
     let productID: Int
-    let reviewID: String
-    
+    let reviewID: Int
+
     var body: some View {
         VStack(spacing: 16) {
-            Text("Review \(reviewID) for product #\(productID)")
-            Text("(Protected route example)")
+            Text("Review #\(reviewID) for product #\(productID)")
         }
         .padding()
         .navigationTitle("Review \(reviewID)")
